@@ -8,7 +8,7 @@ import MyCircle from "./MyCircle";
 
 // Creating the sketch itself
 const sketch = (p5: P5) => {
-  // DEMO: Prepare an array of MyCircle instances
+  // DEMO: Prepare an array of Agent.ts instances
   const myCircles: MyCircle[] = [];
 
   // The sketch setup method
