@@ -1,7 +1,7 @@
 import P5 from "p5";
 import "p5/lib/addons/p5.dom";
 // import "p5/lib/addons/p5.sound";	// Include if needed
-import "./styles.scss";
+import "../styles.scss";
 
 // DEMO: A sample class implementation
 import MyCircle from "./MyCircle";
