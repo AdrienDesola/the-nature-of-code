@@ -4,8 +4,8 @@ export class Agent {
   p5: P5;
   position: P5.Vector;
   _size: number = 16;
-  _maxSpeed: number = 1;
-  _maxForce: number = 0.1;
+  _maxSpeed: number = 6;
+  _maxForce: number = 0.4;
   color: any = 255;
 
   acceleration: P5.Vector;
@@ -18,21 +18,28 @@ export class Agent {
     this.velocity = velocity;
   }
 
-  seek(target: P5.Vector) {
-    let force = target.copy()
+  seek(vector: P5.Vector, minSpeed = 0,  arrival = false) {
+    let force = vector.copy()
       // desired
-      .sub(this.position)
-      // steering
-      .sub(this.velocity);
-
-    force.setMag(this._maxSpeed);
+      .sub(this.position);
+    let desiredSpeed = this._maxSpeed;
+    if (arrival) {
+      let slowRadius = 150;
+      let distance = force.mag();
+      if (distance < slowRadius) {
+        desiredSpeed = this.p5.map(distance, 0, slowRadius, minSpeed, this._maxSpeed);
+      }
+    }
+    force.setMag(desiredSpeed);
+    force.sub(this.velocity);
     force.limit(this._maxForce);
     return force;
   }
 
   pursue(target: Agent, ahead = 10) {
     const targetNextPosition = target.position.copy().add(target.velocity.copy().mult(ahead));
-    return this.seek(targetNextPosition);
+
+    return this.seek(targetNextPosition, target._maxSpeed, true);
   }
 
   flee(vec: P5.Vector) {
@@ -55,10 +62,10 @@ export class Agent {
   }
 
   draw() {
+    this.p5.push();
     this.p5.stroke(this.color);
     this.p5.strokeWeight(2);
     this.p5.fill(this.color);
-    this.p5.push();
     this.p5.translate(this.position);
     this.p5.rotate(this.velocity.heading());
     this.p5.triangle(-this._size, -this._size/2, -this._size, this._size, this._size, this._size/2);

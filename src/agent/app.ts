@@ -21,10 +21,11 @@ const sketch = (p5: P5) => {
     // Configuring the canvas
     p5.background('#00000025');
 
-    pursuer = new Agent(p5, p5.createVector(100, 100),  p5.createVector(100, 0));
+    pursuer = new Agent(p5, p5.createVector(100, 100),  p5.createVector(0, 0));
     pursuer._maxSpeed = pursuer._maxSpeed * 1.5;
 
-    target = new Agent(p5, p5.createVector(100, 100),  p5.createVector(300, 0));
+    target = new Agent(p5, p5.createVector(100, 100),  p5.createVector(300, 100));
+    target.seek(p5.createVector(300, 0));
     target.color = 'blue';
   };
 
@@ -40,7 +41,7 @@ const sketch = (p5: P5) => {
     pursuer.update();
     pursuer.draw();
 
-    target.applyForce(target.evade(pursuer, 1));
+    target.applyForce(p5.createVector(300, 0));
     target.update();
     target.draw();
 
@@ -48,9 +49,7 @@ const sketch = (p5: P5) => {
     if (dist < (pursuer._size + target._size)) {
       target.position = p5.createVector(p5.random(0, p5.width), p5.random(0, p5.height));
       target.velocity = p5.createVector(0, 0);
-      pursuer.position = p5.createVector(p5.random(0, p5.width), p5.random(0, p5.height));
-      pursuer.velocity = p5.createVector(0, 0);
-
+      target.flee(pursuer.position);
     }
   };
 };
