@@ -1,0 +1,33 @@
+{
+  "name": "the-nature-of-code",
+  "version": "1.0.0",
+  "description": "my journey in the coding train - Nature of code series",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrienDesola/the-nature-of-code.git"
+  },
+  "keywords": [
+    "coding",
+    "train"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrienDesola/the-nature-of-code/issues"
+  },
+  "homepage": "https://github.com/AdrienDesola/the-nature-of-code#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.6.1",
+    "sass": "^1.49.9",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@types/p5": "0.9.0",
+    "p5": "0.9.0"
+  }
+}
